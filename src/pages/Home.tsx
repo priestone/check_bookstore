@@ -2,8 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { Book, getBooks } from "../api";
+import Banner from "../components/Banner";
 
-const Container = styled.div``;
+const Container = styled.div`
+  height: 100vh;
+  padding: 0 200px 100px 200px;
+`;
 
 const Home = () => {
   const {
@@ -18,7 +22,12 @@ const Home = () => {
 
   console.log(items);
 
-  return <Container></Container>;
+  return (
+    <Container>
+      <Banner />
+      haha
+    </Container>
+  );
 };
 
 export default Home;
