@@ -18,7 +18,7 @@ const Home = () => {
 
   console.log(items);
 
-  return <Container>홈입니다.</Container>;
+  return <Container></Container>;
 };
 
 export default Home;
