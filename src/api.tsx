@@ -9,7 +9,7 @@ const options = axios.create({
       "C+SiwDIWt9bJ0RfedaXFXWOyA1G0PAnZpt4nZkJjBrXjNpXM6wXK1+Myp4oeKKS9wFJACGkcjrqdgXqaW935gw==",
     pageNo: 1,
     numOfRows: 100,
-    code: "AB35",
+    code: "AH17",
   },
 });
 

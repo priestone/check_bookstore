@@ -13,8 +13,9 @@ const TextArea = styled.div`
   position: absolute;
   left: 5%;
   bottom: 30%;
-
+  z-index: 10;
   font-weight: 800;
+
   h3 {
     font-size: 60px;
   }
@@ -33,6 +34,7 @@ const ImgArea = styled.div`
   justify-content: space-between;
   align-items: center;
   transform: translateY(-50%);
+  z-index: 9;
 `;
 
 const BookImg = styled.div`
@@ -56,8 +58,6 @@ const Banner = () => {
     queryFn: getBooks,
     select: (data) => data.response?.body?.items?.item || [],
   });
-
-  console.log(items);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error occurred!</div>;
