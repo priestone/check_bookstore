@@ -2,6 +2,7 @@
 - [x] npm i styled-components
 - [x] npm i styled-reset
 - [x] npm i react-hook-form
+- [x] npm i axios
 
 - [] npm i react-spinners
 - [] npm i swiper
