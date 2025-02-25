@@ -7,7 +7,7 @@ import { Navigation, Pagination, Grid } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -152,8 +152,6 @@ const BookList = () => {
     select: (data) => data.response?.body?.items?.item || [],
   });
 
-  console.log(items);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
@@ -201,18 +199,20 @@ const BookList = () => {
           <SwiperSlide key={index}>
             <Bookgrid>
               {page.map((book: Book) => (
-                <Contents key={book.BOOK_KEY}>
-                  <img
-                    src={book.IMAGE ? book.IMAGE : noimage}
-                    alt={book.TITLE}
-                  />
-                  <h3>
-                    {book.TITLE.length > 20
-                      ? book.TITLE.slice(0, 21) + "..."
-                      : book.TITLE}
-                  </h3>
-                  <h4>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h4>
-                </Contents>
+                <Link to={"/detail"}>
+                  <Contents key={book.BOOK_KEY}>
+                    <img
+                      src={book.IMAGE ? book.IMAGE : noimage}
+                      alt={book.TITLE}
+                    />
+                    <h3>
+                      {book.TITLE.length > 20
+                        ? book.TITLE.slice(0, 21) + "..."
+                        : book.TITLE}
+                    </h3>
+                    <h4>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h4>
+                  </Contents>
+                </Link>
               ))}
             </Bookgrid>
           </SwiperSlide>
