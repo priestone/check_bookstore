@@ -126,7 +126,6 @@ const Detail = () => {
   }
 
   const handleSave = () => {
-    // 새로 저장할 책 객체 생성 (원본 정보와 사용자가 입력한 값 포함)
     const savedBook = {
       ...book,
       editedTitle,
@@ -137,7 +136,6 @@ const Detail = () => {
       discountEnd,
     };
 
-    // 로컬스토리지에 "mystore" 키로 저장된 배열을 가져옴
     const existing = localStorage.getItem("mystore");
     let storeArray = [];
     if (existing) {
@@ -147,7 +145,7 @@ const Detail = () => {
         storeArray = [];
       }
     }
-    // 새로운 책 객체 추가
+
     storeArray.push(savedBook);
     localStorage.setItem("mystore", JSON.stringify(storeArray));
     alert("내 서점에 저장되었습니다!");
