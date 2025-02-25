@@ -12,36 +12,43 @@ const DetailWrap = styled.div`
   margin-top: 50px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center;
+  gap: 30px;
 `;
 
 const BookImg = styled.div`
-  width: 50%;
   height: 100%;
+  overflow: hidden;
   background-color: salmon;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const TextWrap = styled.div`
-  width: 50%;
+  width: 46%;
   height: 100%;
-  background-color: lightblue;
+  /* background-color: lightblue; */
   display: flex;
   align-items: start;
   justify-content: start;
   flex-direction: column;
 
   h2 {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 10px;
+    opacity: 0.7;
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   span {
@@ -67,15 +74,19 @@ const SaveBox = styled.div`
 `;
 
 const SaveOption = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  p {
+    font-size: 20px;
+  }
 `;
 
 const SaveInput = styled.input`
   all: unset;
-  width: 236px;
+  width: 200px;
   height: 20px;
   background-color: white;
   border-radius: 4px;
@@ -86,7 +97,7 @@ const SaveInput = styled.input`
 const SaveButton = styled.div`
   width: 236px;
   height: 50px;
-  background-color: lightcoral;
+  background-color: lightgreen;
   border-radius: 4px;
   font-size: 20px;
   text-align: center;
@@ -121,31 +132,33 @@ const Detail = () => {
           <h3>출간년도 : {book.PUBLISH_YEAR}년</h3>
           <Bar />
           <p>
-            판매가 <span>14,000 원</span>
+            정가 <span>14,000 원</span>
           </p>
           <Bar />
           <SaveBox>
+            <p>책 편집</p>
             <SaveOption>
               <p>도서명</p>
-              <SaveInput></SaveInput>
+              <SaveInput placeholder="책 제목을 적어주세요"></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>판매가격</p>
-              <SaveInput></SaveInput>
+              <SaveInput placeholder="판매 가격을 적어주세요"></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>판매수량</p>
-              <SaveInput></SaveInput>
+              <SaveInput placeholder="판매 수량을 적어주세요"></SaveInput>
             </SaveOption>
             <SaveOption>
-              <p>할인율</p>
-              <SaveInput></SaveInput>
+              <p>할인율(%)</p>
+              <SaveInput placeholder="퍼센트는 생략해주세요"></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>할인기간</p>
-              <SaveInput></SaveInput>
+              <SaveInput type="date"></SaveInput>~
+              <SaveInput type="date"></SaveInput>
             </SaveOption>
-            <SaveButton>내 서점에 담기</SaveButton>
+            <SaveButton>내서점에 담기</SaveButton>
           </SaveBox>
         </TextWrap>
       </DetailWrap>

@@ -26,7 +26,6 @@ const Bookgrid = styled.div`
 
 const Contents = styled.div`
   height: 380px;
-  /* background-color: green; */
   padding: 10px;
 
   img {

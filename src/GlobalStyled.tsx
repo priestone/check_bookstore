@@ -7,6 +7,7 @@ ${reset}
 
 body{
     color:#1d1d1d;
+    font-family: "Noto Sans KR", serif;
 }
 
 img{
