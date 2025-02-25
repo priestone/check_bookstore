@@ -7,3 +7,11 @@ declare module "*.jpg" {
   const content: string;
   export default content;
 }
+
+interface Book {
+  BOOK_KEY: string;
+  TITLE: string;
+  IMAGE: string;
+  AUTHOR: string;
+  PUBLISHER: string;
+}
