@@ -102,7 +102,7 @@ const StyledSwiper = styled(Swiper)`
 const NavContainer = styled.div`
   position: absolute;
   width: 87%;
-  transform: translate(-80px, -500px);
+  transform: translate(-100px, -500px);
   display: flex;
   justify-content: space-between;
   align-items: center;

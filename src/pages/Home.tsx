@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Book, getBooks } from "../api";
+import { getBooks } from "../api";
 import Banner from "../components/Banner";
 import noimage from "../components/imgs/noimage.jpg";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -64,8 +65,8 @@ const Home = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error occurred!</div>;
 
-  const BooksImages = items.filter(
-    (item: any) => item.IMAGE && item.IMAGE.trim() !== ""
+  const BooksImages: Book[] = items.filter(
+    (book: Book) => book.IMAGE && book.IMAGE.trim() !== ""
   );
 
   const tenItems = (BooksImages || []).slice(0, 10);
@@ -75,15 +76,17 @@ const Home = () => {
       <Banner></Banner>
       <h2>HOT Pick</h2>
       <Bookgrid>
-        {tenItems.map((item: any, index: number) => (
-          <Contents key={index}>
-            <img
-              src={item.IMAGE ? item.IMAGE : noimage}
-              alt={item.TITLE || "책 이미지"}
-            />
-            <h3>{item.TITLE || "Title"}</h3>
-            <h4>{`${item.AUTHOR} | ${item.PUBLISHER}`}</h4>
-          </Contents>
+        {tenItems.map((book: Book, index: number) => (
+          <Link to="/detail" key={index} state={{ book }}>
+            <Contents>
+              <img
+                src={book.IMAGE ? book.IMAGE : noimage}
+                alt={book.TITLE || "책 이미지"}
+              />
+              <h3>{book.TITLE || "Title"}</h3>
+              <h4>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h4>
+            </Contents>
+          </Link>
         ))}
       </Bookgrid>
     </Container>

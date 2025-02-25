@@ -14,4 +14,5 @@ interface Book {
   IMAGE: string;
   AUTHOR: string;
   PUBLISHER: string;
+  PUBLISH_YEAR: string;
 }

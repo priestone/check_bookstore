@@ -106,17 +106,19 @@ const Detail = () => {
     );
   }
 
+  console.log(book);
+
   return (
     <Container>
       <DetailWrap>
         <BookImg>
-          <img src={book.IMAGE || noimage} alt={book.TITLE} />
+          <img src={book.IMAGE ? book.IMAGE : noimage} alt={book.TITLE} />
         </BookImg>
         <TextWrap>
           <h2>{book.TITLE}</h2>
           <Bar />
           <h3>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h3>
-          <h3>출간년도 : 2024</h3>
+          <h3>출간년도 : {book.PUBLISH_YEAR}년</h3>
           <Bar />
           <p>
             판매가 <span>14,000 원</span>
