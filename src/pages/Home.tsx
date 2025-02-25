@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { getBooks } from "../api";
 import Banner from "../components/Banner";
@@ -46,8 +45,6 @@ const Contents = styled.div`
   }
 `;
 
-const Books = styled.div``;
-
 const Home = () => {
   const {
     data: items,
@@ -82,7 +79,11 @@ const Home = () => {
                 src={book.IMAGE ? book.IMAGE : noimage}
                 alt={book.TITLE || "책 이미지"}
               />
-              <h3>{book.TITLE || "Title"}</h3>
+              <h3>
+                {book.TITLE.length > 20
+                  ? book.TITLE.slice(0, 21) + "..."
+                  : book.TITLE}
+              </h3>
               <h4>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h4>
             </Contents>
           </Link>

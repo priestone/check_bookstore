@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import noimage from "../components/imgs/noimage.jpg";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -18,6 +19,9 @@ const Bookgrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
+  a {
+    height: 380px;
+  }
 `;
 
 const Contents = styled.div`
@@ -26,7 +30,7 @@ const Contents = styled.div`
 
   img {
     width: 100%;
-    height: 340px;
+    height: 300px;
     object-fit: cover;
   }
 
@@ -36,24 +40,54 @@ const Contents = styled.div`
   }
 
   h4 {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+  }
+
+  P {
+    font-size: 12px;
     margin-top: 10px;
   }
 `;
 
 const MyStore = () => {
+  const [storeBooks, setStoreBooks] = useState<any[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("mystore");
+    if (stored) {
+      try {
+        setStoreBooks(JSON.parse(stored));
+      } catch (error) {
+        console.error("로컬스토리지 파싱 오류:", error);
+      }
+    }
+  }, []);
   return (
     <Container>
       <h2>내서점</h2>
       <Bookgrid>
-        <Link to="/detail">
-          <Contents>
-            <img src={noimage} alt={"책 이미지"} />
-            <h3>Title</h3>
-            <h4>지음</h4>
-          </Contents>
-        </Link>
+        {storeBooks.length > 0 ? (
+          storeBooks.map((book, index) => (
+            <Link to="/detail" key={index} state={{ book }}>
+              <Contents>
+                <img src={book.IMAGE ? book.IMAGE : noimage} alt={book.TITLE} />
+                <h3>{book.editedTitle || book.TITLE}</h3>
+                <h4>
+                  {book.salePrice ? `${book.salePrice}원` : "가격 정보 없음"}
+                </h4>
+                <p>판매수량: {book.saleQuantity || "정보 없음"}</p>
+                <p>
+                  할인기간: {book.discountStart || "-"} ~{" "}
+                  {book.discountEnd || "-"}
+                </p>
+              </Contents>
+            </Link>
+          ))
+        ) : (
+          <p>저장된 책이 없습니다.</p>
+        )}
       </Bookgrid>
     </Container>
   );

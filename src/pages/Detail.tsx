@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import noimage from "../components/imgs/noimage.jpg";
+import { useState } from "react";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -109,6 +110,13 @@ const Detail = () => {
   const location = useLocation();
   const { book } = location.state || {};
 
+  const [editedTitle, setEditedTitle] = useState(book.TITLE || "");
+  const [salePrice, setSalePrice] = useState("");
+  const [saleQuantity, setSaleQuantity] = useState("");
+  const [discountRate, setDiscountRate] = useState("");
+  const [discountStart, setDiscountStart] = useState("");
+  const [discountEnd, setDiscountEnd] = useState("");
+
   if (!book) {
     return (
       <Container>
@@ -117,7 +125,33 @@ const Detail = () => {
     );
   }
 
-  console.log(book);
+  const handleSave = () => {
+    // 새로 저장할 책 객체 생성 (원본 정보와 사용자가 입력한 값 포함)
+    const savedBook = {
+      ...book,
+      editedTitle,
+      salePrice,
+      saleQuantity,
+      discountRate,
+      discountStart,
+      discountEnd,
+    };
+
+    // 로컬스토리지에 "mystore" 키로 저장된 배열을 가져옴
+    const existing = localStorage.getItem("mystore");
+    let storeArray = [];
+    if (existing) {
+      try {
+        storeArray = JSON.parse(existing);
+      } catch (error) {
+        storeArray = [];
+      }
+    }
+    // 새로운 책 객체 추가
+    storeArray.push(savedBook);
+    localStorage.setItem("mystore", JSON.stringify(storeArray));
+    alert("내 서점에 저장되었습니다!");
+  };
 
   return (
     <Container>
@@ -139,26 +173,51 @@ const Detail = () => {
             <p>책 편집</p>
             <SaveOption>
               <p>도서명</p>
-              <SaveInput placeholder="책 제목을 적어주세요"></SaveInput>
+              <SaveInput
+                placeholder="책 제목을 적어주세요"
+                value={editedTitle}
+                onChange={(e) => setEditedTitle(e.target.value)}
+              ></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>판매가격</p>
-              <SaveInput placeholder="판매 가격을 적어주세요"></SaveInput>
+              <SaveInput
+                placeholder="판매 가격을 적어주세요"
+                value={salePrice}
+                onChange={(e) => setSalePrice(e.target.value)}
+              ></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>판매수량</p>
-              <SaveInput placeholder="판매 수량을 적어주세요"></SaveInput>
+              <SaveInput
+                placeholder="판매 수량을 적어주세요"
+                value={saleQuantity}
+                onChange={(e) => setSaleQuantity(e.target.value)}
+              ></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>할인율(%)</p>
-              <SaveInput placeholder="퍼센트는 생략해주세요"></SaveInput>
+              <SaveInput
+                placeholder="퍼센트는 생략해주세요"
+                value={discountRate}
+                onChange={(e) => setDiscountRate(e.target.value)}
+              ></SaveInput>
             </SaveOption>
             <SaveOption>
               <p>할인기간</p>
-              <SaveInput type="date"></SaveInput>~
-              <SaveInput type="date"></SaveInput>
+              <SaveInput
+                type="date"
+                value={discountStart}
+                onChange={(e) => setDiscountStart(e.target.value)}
+              ></SaveInput>
+              ~
+              <SaveInput
+                type="date"
+                value={discountEnd}
+                onChange={(e) => setDiscountEnd(e.target.value)}
+              ></SaveInput>
             </SaveOption>
-            <SaveButton>내서점에 담기</SaveButton>
+            <SaveButton onClick={handleSave}>내서점에 담기</SaveButton>
           </SaveBox>
         </TextWrap>
       </DetailWrap>
