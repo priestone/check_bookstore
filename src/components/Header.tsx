@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logo from "./imgs/logo.svg";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 100px;
@@ -39,16 +40,25 @@ const Menu = styled.li`
 const Header = () => {
   return (
     <Container>
-      <Logo>
-        <img src={logo} alt="로고이미지" />
-      </Logo>
+      <Link to={"/"}>
+        <Logo>
+          <img src={logo} alt="로고이미지" />
+        </Logo>
+      </Link>
+
       <SearchWrap>
         <Search></Search>
       </SearchWrap>
       <MenuWrap>
-        <Menu>책목록</Menu>
-        <Menu>내서점</Menu>
-        <Menu>로그인</Menu>
+        <Link to={"/booklist"}>
+          <Menu>책목록</Menu>
+        </Link>
+        <Link to={"/mystore"}>
+          <Menu>내서점</Menu>
+        </Link>
+        <Link to={"/login"}>
+          <Menu>로그인</Menu>
+        </Link>
       </MenuWrap>
     </Container>
   );

@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <GlobalStyled />
-      <Header />
+      {/* <Header /> */}
       <Router></Router>
     </QueryClientProvider>
   </React.StrictMode>
