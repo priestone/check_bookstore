@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import logo from "./imgs/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled.div`
   height: 100px;
@@ -15,7 +16,7 @@ const Logo = styled.div`
   width: 135px;
 `;
 
-const SearchWrap = styled.div``;
+const SearchWrap = styled.form``;
 
 const Search = styled.input`
   all: unset;
@@ -38,6 +39,15 @@ const Menu = styled.li`
 `;
 
 const Header = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const onSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`/booklist?query=${encodeURIComponent(searchTerm)}`);
+    setSearchTerm("");
+  };
+
   return (
     <Container>
       <Link to={"/"}>
@@ -46,8 +56,13 @@ const Header = () => {
         </Logo>
       </Link>
 
-      <SearchWrap>
-        <Search></Search>
+      <SearchWrap onSubmit={onSearchSubmit}>
+        <Search
+          type="text"
+          placeholder="책 제목 또는 저자 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        ></Search>
       </SearchWrap>
       <MenuWrap>
         <Link to={"/booklist"}>
