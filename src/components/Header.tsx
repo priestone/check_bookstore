@@ -2,6 +2,8 @@ import styled from "styled-components";
 import logo from "./imgs/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   height: 100px;
@@ -16,7 +18,16 @@ const Logo = styled.div`
   width: 135px;
 `;
 
-const SearchWrap = styled.form``;
+const SearchWrap = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  svg {
+    color: #1086e7;
+    transform: translateX(-30px);
+  }
+`;
 
 const Search = styled.input`
   all: unset;
@@ -63,6 +74,7 @@ const Header = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         ></Search>
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
       </SearchWrap>
       <MenuWrap>
         <Link to={"/booklist"}>

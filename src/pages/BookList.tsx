@@ -8,6 +8,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -102,7 +107,7 @@ const StyledSwiper = styled(Swiper)`
 const NavContainer = styled.div`
   position: absolute;
   width: 87%;
-  transform: translate(-100px, -500px);
+  transform: translate(-90px, -500px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,7 +116,7 @@ const NavContainer = styled.div`
 const NavButton = styled.button`
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 40px;
   color: #239cff;
   cursor: pointer;
 `;
@@ -220,8 +225,12 @@ const BookList = () => {
       </StyledSwiper>
 
       <NavContainer>
-        <NavButton className="custom-prev">&lt;</NavButton>
-        <NavButton className="custom-next">&gt;</NavButton>
+        <NavButton className="custom-prev">
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </NavButton>
+        <NavButton className="custom-next">
+          <FontAwesomeIcon icon={faChevronRight} />
+        </NavButton>
       </NavContainer>
       <PaginationContainer className="custom-pagination" />
     </Container>
