@@ -1,4 +1,6 @@
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import noimage from "../components/imgs/noimage.jpg";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -93,14 +95,27 @@ const SaveButton = styled.div`
 `;
 
 const Detail = () => {
+  const location = useLocation();
+  const { book } = location.state || {};
+
+  if (!book) {
+    return (
+      <Container>
+        <h2>잘못된 접근입니다. 올바른 경로로 접근해 주세요.</h2>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <DetailWrap>
-        <BookImg></BookImg>
+        <BookImg>
+          <img src={book.IMAGE || noimage} alt={book.TITLE} />
+        </BookImg>
         <TextWrap>
-          <h2>불편한 편의점</h2>
+          <h2>{book.TITLE}</h2>
           <Bar />
-          <h3>김호연 지음 | 나무옆의자</h3>
+          <h3>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h3>
           <h3>출간년도 : 2024</h3>
           <Bar />
           <p>

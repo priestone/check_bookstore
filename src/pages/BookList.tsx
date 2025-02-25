@@ -199,8 +199,8 @@ const BookList = () => {
           <SwiperSlide key={index}>
             <Bookgrid>
               {page.map((book: Book) => (
-                <Link to={"/detail"}>
-                  <Contents key={book.BOOK_KEY}>
+                <Link to="/detail" state={{ book }} key={book.BOOK_KEY}>
+                  <Contents>
                     <img
                       src={book.IMAGE ? book.IMAGE : noimage}
                       alt={book.TITLE}
