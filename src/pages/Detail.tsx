@@ -2,6 +2,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import noimage from "../components/imgs/noimage.jpg";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -65,12 +66,18 @@ const Bar = styled.div`
 `;
 
 const SaveBox = styled.div`
+  margin-top: 10px;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: start;
   justify-content: space-between;
   flex-direction: column;
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+  }
 `;
 
 const SaveOption = styled.div`
@@ -110,13 +117,13 @@ const InputWithUnit = styled(SaveInput)`
   }
 `;
 
-const UnitLabel = styled.span`
+const UnitLabel = styled.h5`
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
+  /* color: rgba(0, 0, 0, 0.6); */
 `;
 
 const ErrorMessage = styled.div`
@@ -204,6 +211,13 @@ const Detail = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{book.TITLE}</title>
+        <meta
+          name="description"
+          content="책을 찾고 관리할 수 있는 Check입니다."
+        />
+      </Helmet>
       <DetailWrap>
         <BookImg>
           <img src={book.IMAGE ? book.IMAGE : noimage} alt={book.TITLE} />
@@ -219,7 +233,7 @@ const Detail = () => {
           </p>
           <Bar />
           <SaveBox>
-            <p>책 편집</p>
+            <h4>책 편집</h4>
             <SaveOption>
               <p>도서명</p>
               <SaveInput

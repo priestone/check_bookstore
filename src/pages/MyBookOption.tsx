@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import noimage from "../components/imgs/noimage.jpg";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -60,6 +61,7 @@ const Bar = styled.div`
 `;
 
 const SaveBox = styled.div`
+  margin-top: 10px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -208,6 +210,13 @@ const MyBookOption = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{book.TITLE}</title>
+        <meta
+          name="description"
+          content="책을 찾고 관리할 수 있는 Check입니다."
+        />
+      </Helmet>
       <DetailWrap>
         <BookImg>
           <img src={book.IMAGE ? book.IMAGE : noimage} alt={book.TITLE} />

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import noimage from "../components/imgs/noimage.jpg";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -91,6 +92,13 @@ const MyStore = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>내서점</title>
+        <meta
+          name="description"
+          content="책을 찾고 관리할 수 있는 Check입니다."
+        />
+      </Helmet>
       <h2>내서점</h2>
       <Bookgrid>
         {storeBooks.length > 0 ? (

@@ -4,6 +4,7 @@ import { getBooks } from "../api";
 import Banner from "../components/Banner";
 import noimage from "../components/imgs/noimage.jpg";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -70,6 +71,13 @@ const Home = () => {
   return (
     <Container>
       <Banner></Banner>
+      <Helmet>
+        <title>Home | Check</title>
+        <meta
+          name="description"
+          content="책을 찾고 관리할 수 있는 Check입니다."
+        />
+      </Helmet>
       <h2>HOT Pick</h2>
       <Bookgrid>
         {tenItems.map((book: Book, index: number) => (

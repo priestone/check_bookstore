@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Router from "./Router";
 import { GlobalStyled } from "./GlobalStyled";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Header from "./components/Header";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
@@ -11,10 +11,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyled />
-      {/* <Header /> */}
-      <Router></Router>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyled />
+        <Router></Router>
+      </QueryClientProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );

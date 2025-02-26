@@ -13,6 +13,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -185,6 +186,13 @@ const BookList = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>책목록</title>
+        <meta
+          name="description"
+          content="책을 찾고 관리할 수 있는 Check입니다."
+        />
+      </Helmet>
       <h2>{titleText}</h2>
       <StyledSwiper
         modules={[Navigation, Pagination]}
