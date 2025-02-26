@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { getBooks } from "../api";
+import Loading from "./Loading";
 
 const Container = styled.div`
   width: 100%;
@@ -59,7 +60,7 @@ const Banner = () => {
     select: (data) => data.response?.body?.items?.item || [],
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Error occurred!</div>;
 
   const BannerImages = items.filter(
@@ -82,7 +83,7 @@ const Banner = () => {
             </BookImg>
           ))
         ) : (
-          <div>No image available</div>
+          <Loading />
         )}
       </ImgArea>
     </Container>

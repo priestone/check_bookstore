@@ -1,7 +1,5 @@
 import axios from "axios";
 
-export type Book = {};
-
 const options = axios.create({
   baseURL: "https://apis.data.go.kr/6270000/dgsmartlib",
   params: {

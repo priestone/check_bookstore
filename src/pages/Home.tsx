@@ -5,6 +5,7 @@ import Banner from "../components/Banner";
 import noimage from "../components/imgs/noimage.jpg";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -59,7 +60,7 @@ const Home = () => {
 
   console.log(items);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Error occurred!</div>;
 
   const BooksImages: Book[] = items.filter(

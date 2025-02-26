@@ -5,7 +5,5 @@
 - [x] npm i axios
 - [x] npm i swiper
 - [x] font-awesome
-
-- [] npm i react-spinners
-- [] npm i node-fetch
-- [] npm i react-helmet-async
+- [x] npm i react-helmet-async
+- [x] npm install react-spinners

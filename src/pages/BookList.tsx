@@ -14,6 +14,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -158,7 +159,7 @@ const BookList = () => {
     select: (data) => data.response?.body?.items?.item || [],
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Error</div>;
 
   const books: Book[] = items;
