@@ -95,10 +95,43 @@ const SaveInput = styled.input`
   padding: 5px;
 `;
 
-const SaveButton = styled.div`
+const InputWithUnitWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const InputWithUnit = styled(SaveInput)`
+  padding-right: 30px;
+
+  /* Chrome, Safari, Edge, Opera에서 스피너 제거 */
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+`;
+
+const UnitLabel = styled.span`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+const SaveButton = styled.button`
+  all: unset;
   width: 236px;
   height: 50px;
-  background-color: lightgreen;
+  background-color: ${(props) => (props.disabled ? "#ccc" : "lightgreen")};
+  color: ${(props) => (props.disabled ? "rgba(0,0,0,0.5)" : "black")};
   border-radius: 4px;
   font-size: 20px;
   text-align: center;
@@ -116,6 +149,9 @@ const Detail = () => {
   const [discountRate, setDiscountRate] = useState("");
   const [discountStart, setDiscountStart] = useState("");
   const [discountEnd, setDiscountEnd] = useState("");
+  const [discountRateError, setDiscountRateError] = useState("");
+  const [discountPeriodError, setDiscountPeriodError] = useState("");
+  const [inputError, setInputError] = useState("");
 
   if (!book) {
     return (
@@ -126,6 +162,17 @@ const Detail = () => {
   }
 
   const handleSave = () => {
+    if (!editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim()) {
+      setInputError("도서명, 판매가격, 판매수량을 모두 입력해주세요.");
+      return;
+    }
+    if (Number(discountRate) > 0 && Number(discountRate) < 100) {
+      if (!discountStart || !discountEnd) {
+        setDiscountPeriodError("할인기간을 입력해주세요.");
+        return;
+      }
+    }
+
     const savedBook = {
       ...book,
       editedTitle,
@@ -150,6 +197,9 @@ const Detail = () => {
     localStorage.setItem("mystore", JSON.stringify(storeArray));
     alert("내 서점에 저장되었습니다!");
   };
+
+  const isSaveDisabled =
+    !editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim();
 
   return (
     <Container>
@@ -179,27 +229,52 @@ const Detail = () => {
             </SaveOption>
             <SaveOption>
               <p>판매가격</p>
-              <SaveInput
-                placeholder="판매 가격을 적어주세요"
-                value={salePrice}
-                onChange={(e) => setSalePrice(e.target.value)}
-              ></SaveInput>
+              <InputWithUnitWrapper>
+                <InputWithUnit
+                  type="number"
+                  placeholder="숫자만 입력하세요"
+                  value={salePrice}
+                  onChange={(e) => setSalePrice(e.target.value)}
+                />
+                <UnitLabel>원</UnitLabel>
+              </InputWithUnitWrapper>
             </SaveOption>
             <SaveOption>
               <p>판매수량</p>
-              <SaveInput
-                placeholder="판매 수량을 적어주세요"
-                value={saleQuantity}
-                onChange={(e) => setSaleQuantity(e.target.value)}
-              ></SaveInput>
+              <InputWithUnitWrapper>
+                <InputWithUnit
+                  type="number"
+                  placeholder="숫자만 입력하세요"
+                  value={saleQuantity}
+                  onChange={(e) => setSaleQuantity(e.target.value)}
+                />
+                <UnitLabel>개</UnitLabel>
+              </InputWithUnitWrapper>
             </SaveOption>
             <SaveOption>
               <p>할인율(%)</p>
-              <SaveInput
-                placeholder="퍼센트는 생략해주세요"
-                value={discountRate}
-                onChange={(e) => setDiscountRate(e.target.value)}
-              ></SaveInput>
+              <InputWithUnitWrapper>
+                <InputWithUnit
+                  type="number"
+                  placeholder="숫자만 입력하세요"
+                  value={discountRate}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setDiscountRate(value);
+                    const num = Number(value);
+                    if (value && (num <= 0 || num >= 100)) {
+                      setDiscountRateError(
+                        "할인율은 0보다 크고 100보다 작아야 합니다."
+                      );
+                    } else {
+                      setDiscountRateError("");
+                    }
+                  }}
+                  min={1}
+                  max={99}
+                />
+                <UnitLabel>%</UnitLabel>
+              </InputWithUnitWrapper>
             </SaveOption>
             <SaveOption>
               <p>할인기간</p>
@@ -215,7 +290,12 @@ const Detail = () => {
                 onChange={(e) => setDiscountEnd(e.target.value)}
               ></SaveInput>
             </SaveOption>
-            <SaveButton onClick={handleSave}>내서점에 담기</SaveButton>
+            {discountPeriodError && (
+              <ErrorMessage>{discountPeriodError}</ErrorMessage>
+            )}
+            <SaveButton onClick={handleSave} disabled={isSaveDisabled}>
+              내서점에 담기
+            </SaveButton>
           </SaveBox>
         </TextWrap>
       </DetailWrap>
