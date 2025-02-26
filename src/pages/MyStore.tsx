@@ -145,7 +145,11 @@ const MyStore = () => {
                   <p>판매수량: 0 / {book.saleQuantity}</p>
                   <p>
                     {book.discountStart
-                      ? `할인기간 : ${book.discountStart} ~ ${book.discountEnd}`
+                      ? `할인기간 : ${book.discountStart
+                          .slice(2)
+                          .replace(/-/g, ".")} ~ ${book.discountEnd
+                          .slice(2)
+                          .replace(/-/g, ".")}`
                       : `할인상품이 아닙니다.`}
                   </p>
                 </Contents>

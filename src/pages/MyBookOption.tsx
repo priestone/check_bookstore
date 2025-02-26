@@ -60,6 +60,12 @@ const Bar = styled.div`
   margin: 10px 0;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
 const SaveBox = styled.div`
   margin-top: 10px;
   width: 100%;
@@ -154,6 +160,8 @@ const MyBookOption = () => {
   );
   const [discountStart, setDiscountStart] = useState(book.discountStart || "");
   const [discountEnd, setDiscountEnd] = useState(book.discountEnd || "");
+  const [inputError, setInputError] = useState("");
+  const [discountPeriodError, setDiscountPeriodError] = useState("");
 
   if (!book) {
     return (
@@ -167,8 +175,16 @@ const MyBookOption = () => {
     !editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim();
 
   const handleUpdate = () => {
-    if (isSaveDisabled)
-      return alert("도서명, 판매가격, 판매수량을 모두 입력해주세요.");
+    if (!editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim()) {
+      setInputError("도서명, 판매가격, 판매수량을 모두 입력해주세요.");
+      return;
+    }
+    if (Number(discountRate) > 0 && Number(discountRate) < 100) {
+      if (!discountStart || !discountEnd) {
+        setDiscountPeriodError("할인기간을 입력해주세요.");
+        return;
+      }
+    }
 
     const stored = localStorage.getItem("mystore");
     if (!stored) return;
@@ -285,6 +301,9 @@ const MyBookOption = () => {
                 onChange={(e) => setDiscountEnd(e.target.value)}
               />
             </SaveOption>
+            {discountPeriodError && (
+              <ErrorMessage>{discountPeriodError}</ErrorMessage>
+            )}
             <ButtonWrap>
               <SaveButton onClick={handleUpdate} disabled={isSaveDisabled}>
                 수정하기
