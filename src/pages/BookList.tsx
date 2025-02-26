@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getBooks } from "../api";
 import noimage from "../components/imgs/noimage.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Grid } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

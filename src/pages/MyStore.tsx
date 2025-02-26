@@ -40,15 +40,39 @@ const Contents = styled.div`
   }
 
   h4 {
-    font-size: 16px;
+    font-size: 12px;
     color: rgba(0, 0, 0, 0.5);
     margin-top: 10px;
   }
 
   P {
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 10px;
   }
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+`;
+
+const DiscountPrice = styled.span`
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+`;
+
+const OriginalPrice = styled.span`
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  text-decoration: line-through;
+`;
+
+const DiscountRate = styled.span`
+  font-size: 12px;
+  color: red;
 `;
 
 const MyStore = () => {
@@ -64,27 +88,62 @@ const MyStore = () => {
       }
     }
   }, []);
+
   return (
     <Container>
       <h2>내서점</h2>
       <Bookgrid>
         {storeBooks.length > 0 ? (
-          storeBooks.map((book, index) => (
-            <Link to="/detail" key={index} state={{ book }}>
-              <Contents>
-                <img src={book.IMAGE ? book.IMAGE : noimage} alt={book.TITLE} />
-                <h3>{book.editedTitle || book.TITLE}</h3>
-                <h4>
-                  {book.salePrice ? `${book.salePrice}원` : "가격 정보 없음"}
-                </h4>
-                <p>판매수량: {book.saleQuantity || "정보 없음"}</p>
-                <p>
-                  할인기간: {book.discountStart || "-"} ~{" "}
-                  {book.discountEnd || "-"}
-                </p>
-              </Contents>
-            </Link>
-          ))
+          storeBooks.map((book, index) => {
+            const cleanSalePrice = Number(
+              book.salePrice.toString().replace(/[^0-9]/g, "")
+            );
+            const cleanDiscountRate = Number(
+              book.discountRate.toString().replace(/[^0-9]/g, "")
+            );
+
+            const discountedPrice =
+              cleanSalePrice - (cleanSalePrice * cleanDiscountRate) / 100;
+            return (
+              <Link to="/detail" key={index} state={{ book }}>
+                <Contents>
+                  <img
+                    src={book.IMAGE ? book.IMAGE : noimage}
+                    alt={book.TITLE}
+                  />
+                  <h3>{book.editedTitle || book.TITLE}</h3>
+                  {book.discountRate ? (
+                    <PriceContainer>
+                      <DiscountPrice>
+                        {discountedPrice.toLocaleString()}원
+                      </DiscountPrice>
+                      <OriginalPrice>
+                        {Number(book.salePrice).toLocaleString()}원
+                      </OriginalPrice>
+                      <DiscountRate>{book.discountRate}%</DiscountRate>
+                    </PriceContainer>
+                  ) : (
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        color: "black",
+                        marginTop: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {Number(book.salePrice).toLocaleString()}원
+                    </div>
+                  )}
+                  <p>판매수량: 0 / {book.saleQuantity}</p>
+                  <p>
+                    {book.discountStart
+                      ? `할인기간 : ${book.discountStart} ~ ${book.discountEnd}`
+                      : `할인상품이 아닙니다.`}
+                  </p>
+                </Contents>
+              </Link>
+            );
+          })
         ) : (
           <p>저장된 책이 없습니다.</p>
         )}
