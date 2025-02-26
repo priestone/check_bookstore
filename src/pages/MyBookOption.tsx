@@ -1,7 +1,7 @@
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import noimage from "../components/imgs/noimage.jpg";
 import { useState } from "react";
+import noimage from "../components/imgs/noimage.jpg";
 
 const Container = styled.div`
   padding: 0 200px 100px 200px;
@@ -50,11 +50,6 @@ const TextWrap = styled.div`
   p {
     font-size: 16px;
   }
-
-  span {
-    margin-left: 50px;
-    color: red;
-  }
 `;
 
 const Bar = styled.div`
@@ -68,9 +63,14 @@ const SaveBox = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: start;
-  justify-content: space-between;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+  }
 `;
 
 const SaveOption = styled.div`
@@ -87,11 +87,10 @@ const SaveOption = styled.div`
 const SaveInput = styled.input`
   all: unset;
   width: 200px;
-  height: 20px;
-  background-color: white;
-  border-radius: 4px;
+  height: 25px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   padding: 5px;
+  border-radius: 4px;
 `;
 
 const InputWithUnitWrapper = styled.div`
@@ -119,39 +118,40 @@ const UnitLabel = styled.span`
   color: rgba(0, 0, 0, 0.6);
 `;
 
-const ErrorMessage = styled.div`
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
+const ButtonWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
 `;
 
 const SaveButton = styled.button`
-  all: unset;
-  width: 236px;
-  height: 50px;
+  width: 200px;
+  height: 45px;
   background-color: ${(props) => (props.disabled ? "#ccc" : "lightgreen")};
   color: ${(props) => (props.disabled ? "rgba(0,0,0,0.5)" : "black")};
   border-radius: 4px;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
-  line-height: 50px;
-  margin: 0 auto;
+  border: none;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
-const Detail = () => {
+const MyBookOption = () => {
   const location = useLocation();
-  const { book } = location.state || {};
   const navigate = useNavigate();
+  const { book } = location.state || {};
 
-  const [editedTitle, setEditedTitle] = useState(book.TITLE || "");
-  const [salePrice, setSalePrice] = useState("");
-  const [saleQuantity, setSaleQuantity] = useState("");
-  const [discountRate, setDiscountRate] = useState("");
-  const [discountStart, setDiscountStart] = useState("");
-  const [discountEnd, setDiscountEnd] = useState("");
-  const [discountRateError, setDiscountRateError] = useState("");
-  const [discountPeriodError, setDiscountPeriodError] = useState("");
-  const [inputError, setInputError] = useState("");
+  const [editedTitle, setEditedTitle] = useState(
+    book.editedTitle || book.TITLE
+  );
+  const [salePrice, setSalePrice] = useState(book.salePrice || "");
+  const [saleQuantity, setSaleQuantity] = useState(book.saleQuantity || "");
+  const [discountRate, setDiscountRate] = useState(
+    book.discountRate ? String(book.discountRate) : ""
+  );
+  const [discountStart, setDiscountStart] = useState(book.discountStart || "");
+  const [discountEnd, setDiscountEnd] = useState(book.discountEnd || "");
 
   if (!book) {
     return (
@@ -161,46 +161,50 @@ const Detail = () => {
     );
   }
 
-  const handleSave = () => {
-    if (!editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim()) {
-      setInputError("도서명, 판매가격, 판매수량을 모두 입력해주세요.");
-      return;
-    }
-    if (Number(discountRate) > 0 && Number(discountRate) < 100) {
-      if (!discountStart || !discountEnd) {
-        setDiscountPeriodError("할인기간을 입력해주세요.");
-        return;
-      }
-    }
+  const isSaveDisabled =
+    !editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim();
 
-    const savedBook = {
-      ...book,
-      editedTitle,
-      salePrice,
-      saleQuantity,
-      discountRate,
-      discountStart,
-      discountEnd,
-    };
+  const handleUpdate = () => {
+    if (isSaveDisabled)
+      return alert("도서명, 판매가격, 판매수량을 모두 입력해주세요.");
 
-    const existing = localStorage.getItem("mystore");
-    let storeArray = [];
-    if (existing) {
-      try {
-        storeArray = JSON.parse(existing);
-      } catch (error) {
-        storeArray = [];
-      }
-    }
+    const stored = localStorage.getItem("mystore");
+    if (!stored) return;
 
-    storeArray.push(savedBook);
+    let storeArray = JSON.parse(stored);
+    storeArray = storeArray.map((item: Book) =>
+      item.TITLE === book.TITLE
+        ? {
+            ...item,
+            editedTitle,
+            salePrice,
+            saleQuantity,
+            discountRate,
+            discountStart,
+            discountEnd,
+          }
+        : item
+    );
+
     localStorage.setItem("mystore", JSON.stringify(storeArray));
-    alert("내 서점에 저장되었습니다!");
+    alert("책 정보가 수정되었습니다!");
     navigate("/mystore");
   };
 
-  const isSaveDisabled =
-    !editedTitle.trim() || !salePrice.trim() || !saleQuantity.trim();
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("정말로 이 책을 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    const stored = localStorage.getItem("mystore");
+    if (!stored) return;
+
+    let storeArray = JSON.parse(stored);
+    storeArray = storeArray.filter((item: Book) => item.TITLE !== book.TITLE);
+
+    localStorage.setItem("mystore", JSON.stringify(storeArray));
+    alert("책이 삭제되었습니다!");
+    navigate("/mystore");
+  };
 
   return (
     <Container>
@@ -214,26 +218,20 @@ const Detail = () => {
           <h3>{`${book.AUTHOR} | ${book.PUBLISHER}`}</h3>
           <h3>출간년도 : {book.PUBLISH_YEAR}년</h3>
           <Bar />
-          <p>
-            정가 <span>14,000 원</span>
-          </p>
-          <Bar />
           <SaveBox>
-            <p>책 편집</p>
+            <h4>책 정보 수정</h4>
             <SaveOption>
               <p>도서명</p>
               <SaveInput
-                placeholder="책 제목을 적어주세요"
                 value={editedTitle}
                 onChange={(e) => setEditedTitle(e.target.value)}
-              ></SaveInput>
+              />
             </SaveOption>
             <SaveOption>
               <p>판매가격</p>
               <InputWithUnitWrapper>
                 <InputWithUnit
                   type="number"
-                  placeholder="숫자만 입력하세요"
                   value={salePrice}
                   onChange={(e) => setSalePrice(e.target.value)}
                 />
@@ -245,7 +243,6 @@ const Detail = () => {
               <InputWithUnitWrapper>
                 <InputWithUnit
                   type="number"
-                  placeholder="숫자만 입력하세요"
                   value={saleQuantity}
                   onChange={(e) => setSaleQuantity(e.target.value)}
                 />
@@ -257,20 +254,8 @@ const Detail = () => {
               <InputWithUnitWrapper>
                 <InputWithUnit
                   type="number"
-                  placeholder="숫자만 입력하세요"
                   value={discountRate}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setDiscountRate(value);
-                    const num = Number(value);
-                    if (value && (num <= 0 || num >= 100)) {
-                      setDiscountRateError(
-                        "할인율은 0보다 크고 100보다 작아야 합니다."
-                      );
-                    } else {
-                      setDiscountRateError("");
-                    }
-                  }}
+                  onChange={(e) => setDiscountRate(e.target.value)}
                   min={1}
                   max={99}
                 />
@@ -283,20 +268,25 @@ const Detail = () => {
                 type="date"
                 value={discountStart}
                 onChange={(e) => setDiscountStart(e.target.value)}
-              ></SaveInput>
+              />
               ~
               <SaveInput
                 type="date"
                 value={discountEnd}
                 onChange={(e) => setDiscountEnd(e.target.value)}
-              ></SaveInput>
+              />
             </SaveOption>
-            {discountPeriodError && (
-              <ErrorMessage>{discountPeriodError}</ErrorMessage>
-            )}
-            <SaveButton onClick={handleSave} disabled={isSaveDisabled}>
-              내서점에 담기
-            </SaveButton>
+            <ButtonWrap>
+              <SaveButton onClick={handleUpdate} disabled={isSaveDisabled}>
+                수정하기
+              </SaveButton>
+              <SaveButton
+                onClick={handleDelete}
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                삭제하기
+              </SaveButton>
+            </ButtonWrap>
           </SaveBox>
         </TextWrap>
       </DetailWrap>
@@ -304,4 +294,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default MyBookOption;

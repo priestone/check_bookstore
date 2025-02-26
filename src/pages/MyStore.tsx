@@ -105,7 +105,7 @@ const MyStore = () => {
             const discountedPrice =
               cleanSalePrice - (cleanSalePrice * cleanDiscountRate) / 100;
             return (
-              <Link to="/detail" key={index} state={{ book }}>
+              <Link to="/mybookoption" key={index} state={{ book }}>
                 <Contents>
                   <img
                     src={book.IMAGE ? book.IMAGE : noimage}
