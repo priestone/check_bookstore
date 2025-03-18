@@ -1,5 +1,5 @@
 {
-  "name": "rgt_bookstore",
+  "name": "check_bookstore",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -39,7 +39,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://priestone.github.io/rgt_bookstore/#/",
+  "homepage": "https://priestone.github.io/check_bookstore/#/",
   "eslintConfig": {
     "extends": [
       "react-app",
