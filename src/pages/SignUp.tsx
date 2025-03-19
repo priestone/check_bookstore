@@ -3,7 +3,13 @@ import styled from "styled-components";
 import logo from "../components/imgs/logo.svg";
 import { Link } from "react-router-dom";
 
-const Container = styled.div``;
+const Container = styled.div`
+  h2 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+`;
 
 const LoginWrap = styled.div`
   width: 500px;
@@ -76,7 +82,7 @@ const Bar = styled.div`
 
 const SignUpWrap = styled.div``;
 
-const Login = () => {
+const SignUp = () => {
   return (
     <Container>
       <Helmet>
@@ -87,21 +93,19 @@ const Login = () => {
         />
       </Helmet>
       <LoginWrap>
-        <Logo>
-          <img src={logo} alt="로고이미지" />
-        </Logo>
+        <h2>회원가입</h2>
         <InputWrap>
           <IdWrap placeholder="아이디를 입력해주세요"></IdWrap>
           <PasswordWrap placeholder="비밀번호를 입력해주세요"></PasswordWrap>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton>회원가입</LoginButton>
         </InputWrap>
         <Bar></Bar>
-        <Link to={"/signup"}>
-          <SignUpWrap>회원가입</SignUpWrap>
+        <Link to={"/login"}>
+          <SignUpWrap>로그인</SignUpWrap>
         </Link>
       </LoginWrap>
     </Container>
   );
 };
 
-export default Login;
+export default SignUp;
