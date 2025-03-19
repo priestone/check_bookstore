@@ -16,3 +16,8 @@ interface Book {
   PUBLISHER: string;
   PUBLISH_YEAR: string;
 }
+
+interface User {
+  id: string;
+  password: string;
+}

@@ -3,7 +3,13 @@ import styled from "styled-components";
 import logo from "../components/imgs/logo.svg";
 import { Link } from "react-router-dom";
 
-const Container = styled.div``;
+const Container = styled.div`
+  h2 {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+`;
 
 const LoginWrap = styled.div`
   width: 500px;
@@ -15,11 +21,6 @@ const LoginWrap = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 20px;
-`;
-
-const Logo = styled.div`
-  width: 200px;
-  margin-top: 50px;
 `;
 
 const InputWrap = styled.form`
@@ -87,12 +88,13 @@ const Login = () => {
         />
       </Helmet>
       <LoginWrap>
-        <Logo>
-          <img src={logo} alt="로고이미지" />
-        </Logo>
+        <h2>로그인</h2>
         <InputWrap>
-          <IdWrap placeholder="아이디를 입력해주세요"></IdWrap>
-          <PasswordWrap placeholder="비밀번호를 입력해주세요"></PasswordWrap>
+          <IdWrap placeholder="아이디를 입력해주세요" type="text"></IdWrap>
+          <PasswordWrap
+            placeholder="비밀번호를 입력해주세요"
+            type="password"
+          ></PasswordWrap>
           <LoginButton>로그인</LoginButton>
         </InputWrap>
         <Bar></Bar>

@@ -1,11 +1,10 @@
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import logo from "../components/imgs/logo.svg";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
   h2 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     margin-top: 50px;
   }
@@ -21,11 +20,6 @@ const LoginWrap = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 20px;
-`;
-
-const Logo = styled.div`
-  width: 200px;
-  margin-top: 50px;
 `;
 
 const InputWrap = styled.form`
@@ -86,7 +80,7 @@ const SignUp = () => {
   return (
     <Container>
       <Helmet>
-        <title>로그인</title>
+        <title>회원가입</title>
         <meta
           name="description"
           content="책을 찾고 관리할 수 있는 Check입니다."
