@@ -47,6 +47,7 @@ const Contents = styled.div`
   h3 {
     font-size: 16px;
     margin-top: 10px;
+    font-weight: 600;
   }
 
   h4 {
@@ -133,8 +134,8 @@ const PaginationContainer = styled.div`
   gap: 10px;
 
   .swiper-pagination-bullet {
-    width: 20px !important;
-    height: 20px !important;
+    width: 16px !important;
+    height: 16px !important;
     background-color: #cce2ff !important;
     opacity: 1 !important;
     margin: 0 6px !important;
@@ -182,7 +183,7 @@ const BookList = () => {
     titleText =
       filteredBooks.length > 0
         ? `${searchQuery}에 대한 검색결과입니다.`
-        : `${searchQuery}에 대한 검색결과가 존재하지 않습니다.`;
+        : `"${searchQuery}"에 대한 검색결과가 존재하지 않습니다.`;
   }
 
   return (

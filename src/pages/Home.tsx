@@ -38,6 +38,7 @@ const Contents = styled.div`
   h3 {
     font-size: 16px;
     margin-top: 10px;
+    font-weight: 600;
   }
 
   h4 {
