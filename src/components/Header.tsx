@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
-  height: 100px;
+  height: 60px;
   padding: 20px 200px;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@ const Search = styled.input`
   height: 30px;
   border-radius: 4px;
   border: 2px solid #239cff;
-  padding: 5px;
+  padding: 5px 10px;
 `;
 
 const MenuWrap = styled.ul`
@@ -47,6 +47,10 @@ const MenuWrap = styled.ul`
 
 const Menu = styled.li`
   font-size: 18px;
+
+  &:hover {
+    color: #1f8de7;
+  }
 `;
 
 const Header = () => {
