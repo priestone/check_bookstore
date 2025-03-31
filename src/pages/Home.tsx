@@ -15,6 +15,18 @@ const Container = styled.div`
     font-size: 30px;
     font-weight: bold;
   }
+
+  @media screen and (max-width: 1000px) {
+    padding: 0 100px 100px 100px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 50px 100px 50px;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 0 30px 100px 30px;
+  }
 `;
 
 const Bookgrid = styled.div`
@@ -23,6 +35,21 @@ const Bookgrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
+
+  @media screen and (max-width: 1400px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+  }
 `;
 
 const Contents = styled.div`
@@ -45,6 +72,26 @@ const Contents = styled.div`
     font-size: 14px;
     color: rgba(0, 0, 0, 0.5);
     margin-top: 10px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    height: 100%;
+
+    img {
+      height: 500px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    img {
+      height: 700px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    img {
+      height: 500px;
+    }
   }
 `;
 

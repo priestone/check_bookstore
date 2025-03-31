@@ -8,6 +8,14 @@ const Container = styled.div`
   height: 700px;
   background-color: bisque;
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    height: 600px;
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 400px;
+  }
 `;
 
 const TextArea = styled.div`
@@ -24,18 +32,54 @@ const TextArea = styled.div`
   h4 {
     font-size: 80px;
   }
+
+  @media screen and (max-width: 1200px) {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    h4 {
+      width: 400px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    h3 {
+      font-size: 46px;
+      width: 130px;
+    }
+
+    h4 {
+      font-size: 40px;
+      width: 190px;
+    }
+  }
 `;
 const ImgArea = styled.div`
   position: absolute;
   right: 10%;
   top: 50%;
-  width: 700px;
+  /* width: 700px; */
   gap: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transform: translateY(-50%);
   z-index: 9;
+
+  @media screen and (max-width: 1600px) {
+    right: 50px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    top: 5%;
+    right: 50%;
+    transform: translateX(50%);
+  }
 `;
 
 const BookImg = styled.div`
@@ -47,6 +91,21 @@ const BookImg = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 1600px) {
+    width: 240px;
+    height: 335px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 180px;
+    height: 251px;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 130px;
+    height: 180px;
   }
 `;
 const Banner = () => {
