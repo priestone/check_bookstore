@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/rgt_bookstore/static/css/main.c03f03ca.css",
-    "main.js": "/rgt_bookstore/static/js/main.012be653.js",
-    "static/media/noimage.jpg": "/rgt_bookstore/static/media/noimage.2b854ff2f6d585131abc.jpg",
-    "static/media/logo.svg": "/rgt_bookstore/static/media/logo.5897013a2da6bc62550ce183445f5de7.svg",
-    "index.html": "/rgt_bookstore/index.html",
-    "main.c03f03ca.css.map": "/rgt_bookstore/static/css/main.c03f03ca.css.map",
-    "main.012be653.js.map": "/rgt_bookstore/static/js/main.012be653.js.map"
+    "main.css": "/check_bookstore/static/css/main.c03f03ca.css",
+    "main.js": "/check_bookstore/static/js/main.5ad7e2f0.js",
+    "static/media/noimage.jpg": "/check_bookstore/static/media/noimage.2b854ff2f6d585131abc.jpg",
+    "static/media/logo.svg": "/check_bookstore/static/media/logo.5897013a2da6bc62550ce183445f5de7.svg",
+    "index.html": "/check_bookstore/index.html",
+    "main.c03f03ca.css.map": "/check_bookstore/static/css/main.c03f03ca.css.map",
+    "main.5ad7e2f0.js.map": "/check_bookstore/static/js/main.5ad7e2f0.js.map"
   },
   "entrypoints": [
     "static/css/main.c03f03ca.css",
-    "static/js/main.012be653.js"
+    "static/js/main.5ad7e2f0.js"
   ]
 }
